@@ -2,6 +2,8 @@
 
 namespace Alura\Pdo\Domain\Model;
 
+use DomainException;
+
 class Student
 {
     private ?int $id;
@@ -20,9 +22,23 @@ class Student
         return $this->id;
     }
 
+    public function defineId(int $id): void
+    {
+        if (!is_null($this->id)) {
+            throw new DomainException("Você só pode definir o id uma vez.");
+        }
+
+        $this->id = $id;
+    }
+
     public function name(): string
     {
         return $this->name;
+    }
+
+    public function changeName(string $name): void
+    {
+        $this->name = $name;
     }
 
     public function birthDate(): \DateTimeInterface
